@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdio.h>
 #include <stdbool.h>
 
 /**
@@ -12,7 +11,7 @@
 void selection_sort(int *array, size_t size)
 {
 	unsigned int i, j;
-	int temp, min;
+	int min, min_id;
 	bool swapped;
 
 	for (i = 0; i < size - 1; i++)
@@ -25,13 +24,14 @@ void selection_sort(int *array, size_t size)
 			if (min > array[j])
 			{
 				min = array[j];
-				temp = j;
+				min_id = j;
 				swapped = true;
 			}
 		}
+		
 		if (swapped)
 		{
-			array[temp] = array[i];
+			array[min_id] = array[i];
 			array[i] = min;
 
 			print_array(array, size);
