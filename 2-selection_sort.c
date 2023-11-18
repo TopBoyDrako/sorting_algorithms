@@ -12,23 +12,23 @@ void selection_sort(int *array, size_t size)
 {
 	unsigned int i, j;
 	int min, min_id;
-	bool swapped;
+	bool min_changed;
 
 	for (i = 0; i < size - 1; i++)
 	{
 		min = array[i];
-		swapped = false;
+		min_changed = false;
 
-		for (j = i; j < size; j++)
+		for (j = i + 1; j < size; j++)
 		{
 			if (min > array[j])
 			{
 				min = array[j];
 				min_id = j;
-				swapped = true;
+				min_changed = true;
 			}
 		}
-		if (swapped)
+		if (min_changed)
 		{
 			array[min_id] = array[i];
 			array[i] = min;
