@@ -16,10 +16,10 @@ void selection_sort(int *array, size_t size)
 
 	for (i = 0; i < size - 1; i++)
 	{
-		swapped = false;
 		min = array[i];
+		swapped = false;
 
-		for (j = i + 1; j < size; j++)
+		for (j = i; j < size; j++)
 		{
 			if (min > array[j])
 			{
@@ -28,7 +28,6 @@ void selection_sort(int *array, size_t size)
 				swapped = true;
 			}
 		}
-		
 		if (swapped)
 		{
 			array[min_id] = array[i];
