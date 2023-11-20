@@ -1,43 +1,55 @@
 #include "sort.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
-* swap - function to swap 2 integers
-*
-* @*a: int to swap
-* @*b: int to swap
+* quick_sort - Sorts an array of integers in ascending order using Quick sort
+* @array: The array to be sorted
+* @size: The size of the array
 */
-
-void swap(int *a, int *b)
+void quick_sort(int *array, size_t size)
 {
-	int temp = *a;
-	*a = *b;
-	*b = temp;
+	if (array == NULL || size < 2)
+		return;
+
+	quick_sort_callback(array, 0, size - 1, size);
 }
+
 
 /**
 * lomuto_partition - This is a quicksort sorting scheme implemntation 
 * @array: array
 * @less: first element in array
 * @great: last element in array
+* @size: size of the array
+*
+* Return: The index of he pivot of partitioning 
 */
 
-int lomuto_partition(int *array, int less, int great)
+int lomuto_partition(int *array, int less, int great, size_t size)
 {
 	int pivot = array[great];
 	int i = less - 1;
+	int j, temp;
 
-	int j;
 	for (j = less; j <= great - 1; j++)
 	{
 		if (array[j] < pivot)
 		{
 			i++;
-			swap(&array[i], &array[j]);
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+			print_array(array, size);
 		}
 	}
 
-	swap(&array[i + 1], &array[great]);
+	temp = array[i + 1];
+	array[i + 1] = array[great];
+	array[great] = temp;
+	print_array(array, size);
+
+
 	return i + 1;
 }
 
@@ -48,32 +60,13 @@ int lomuto_partition(int *array, int less, int great)
 * @great: last element in array
 */
 
-void quick_sort_callback(int *array, int less, int great)
+void quick_sort_callback(int *array, int less, int great, size_t size)
 {
-	int i;
- 
-   if (less < great)
-    {
-        int pivot_index = lomuto_partition(array, less, great);
+	if (less < great)
+	{
+        int pivot_index = lomuto_partition(array, less, great, size);
 
-        quick_sort_callback(array, less, pivot_index - 1);
-        quick_sort_callback(array, pivot_index + 1, great);
-
-        for (i = less; i <= great; i++)
-        {
-            printf("%d ", array[i]);
-        }
-        printf("\n");
-    }
-}
-
-/**
-* quick_sort - This is the function to sort an algorithm using quicksort
-* @array: array of integers
-* @size: size of the array
-*/
-
-void quick_sort(int *array, size_t size)
-{
-	quick_sort_callback(array, 0, size - 1);
+        quick_sort_callback(array, less, pivot_index - 1, size);
+        quick_sort_callback(array, pivot_index + 1, great, size);
+	}
 }
