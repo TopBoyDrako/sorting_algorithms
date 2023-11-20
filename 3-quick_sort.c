@@ -1,72 +1,83 @@
 #include "sort.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
-* quick_sort - Sorts an array of integers in ascending order using Quick sort
-* @array: The array to be sorted
-* @size: The size of the array
-*/
-void quick_sort(int *array, size_t size)
+ * swap - Swaps the positions of two elements in an array
+ * @array: The array
+ * @item1: Index of the first element
+ * @item2: Index of the second element
+ */
+void swap(int *array, size_t a, size_t b)
 {
-	if (array == NULL || size < 2)
-		return;
-
-	quick_sort_callback(array, 0, size - 1, size);
+	int tmp = array[a];
+	array[a] = array[b];
+	array[b] = tmp;
 }
 
-
 /**
-* lomuto_partition - This is a quicksort sorting scheme implemntation 
-* @array: array
-* @less: first element in array
-* @great: last element in array
-* @size: size of the array
-*
-* Return: The index of he pivot of partitioning 
-*/
-
-int lomuto_partition(int *array, int less, int great, size_t size)
+ * lomuto_partition - Lomuto partition sorting scheme implementation
+ * @array: The array to be partitioned
+ * @first: The first index of the array
+ * @last: The last index of the array
+ * @size: The size of the array
+ *
+ * Return: The position of the last element after partitioning
+ */
+int lomuto_partition(int *array, size_t low, size_t high, size_t size)
 {
-	int pivot = array[great];
-	int i = less - 1;
-	int j, temp;
+	int pivot = array[high];
+	size_t current = low, j;
 
-	for (j = less; j <= great - 1; j++)
+	for (j = low; j < high; j++)
 	{
 		if (array[j] < pivot)
 		{
-			i++;
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-			print_array(array, size);
+			if (array[current] != array[j])
+			{
+				swap(array, current, j);
+				print_array(array, size);
+			}
+			current++;
 		}
 	}
 
-	temp = array[i + 1];
-	array[i + 1] = array[great];
-	array[great] = temp;
-	print_array(array, size);
+	if (array[current] != array[high])
+	{
+		swap(array, current, high);
+		print_array(array, size);
+	}
 
-
-	return i + 1;
+	return current;
 }
 
-/*
-* quick_sort_callback - implementation for the quicksort algorithm
-* @array: array
-* @less: first element in array
-* @great: last element in array
-*/
-
-void quick_sort_callback(int *array, int less, int great, size_t size)
+/**
+ * quick_sort_recursion - Quick sort algorithm implementation (helper function)
+ * @array: The array to be sorted
+ * @first: The first index of the array
+ * @last: The last index of the array
+ * @size: The size of the array
+ */
+void quick_sort_recursion(int *array, int low, int high, size_t size)
 {
-	if (less < great)
-	{
-        int pivot_index = lomuto_partition(array, less, great, size);
+	int position;
 
-        quick_sort_callback(array, less, pivot_index - 1, size);
-        quick_sort_callback(array, pivot_index + 1, great, size);
+	if (low < high)
+	{
+		position = lomuto_partition(array, low, high, size);
+
+		quick_sort_recursion(array, low, position - 1, size);
+		quick_sort_recursion(array, position + 1, high, size);
 	}
+}
+
+/**
+ * quick_sort - Prepares the terrain for the Quick sort algorithm
+ * @array: The array to be sorted
+ * @size: The size of the array
+ */
+void quick_sort(int *array, size_t size)
+{
+	if (!array || size < 2)
+		return;
+    
+	quick_sort_recursion(array, 0, size - 1, size);
 }

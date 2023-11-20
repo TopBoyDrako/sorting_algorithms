@@ -38,7 +38,6 @@ void bitonic_sort(int *array, size_t size);
 void quick_sort_hoare(int *array, size_t size);
 void sort_deck(deck_node_t **deck);
 listint_t *swap_node(listint_t *node, listint_t **list);
-void quick_sort_callback(int *array, int less, int great, size_t size);
-
+void quick_sort_recursion(int *array, int low, int high, size_t size);
 
 #endif
