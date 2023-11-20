@@ -27,7 +27,8 @@ int lomuto_partition(int *array, int less, int great)
 	int pivot = array[great];
 	int i = less - 1;
 
-	for (int j = less; j <= great - 1; j++)
+	int j;
+	for (j = less; j <= great - 1; j++)
 	{
 		if (array[j] < pivot)
 		{
@@ -46,21 +47,24 @@ int lomuto_partition(int *array, int less, int great)
 * @less: first element in array
 * @great: last element in array
 */
+
 void quick_sort_callback(int *array, int less, int great)
 {
-	if (less < great)
-	{
-		int pivot_index = lomuto_partition(array, less, great);
+	int i;
+ 
+   if (less < great)
+    {
+        int pivot_index = lomuto_partition(array, less, great);
 
-		quick_sort_callback(array, less, pivot_index - 1);
-		quick_sort_callback(array, pivot_index + 1, great);
+        quick_sort_callback(array, less, pivot_index - 1);
+        quick_sort_callback(array, pivot_index + 1, great);
 
-		for (int i = less; i <= great; i++)
-		{
-			printf("%d ", array[i]);
-		}
-		printf("\n");
-	}
+        for (i = less; i <= great; i++)
+        {
+            printf("%d ", array[i]);
+        }
+        printf("\n");
+    }
 }
 
 /**
