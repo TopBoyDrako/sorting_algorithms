@@ -3,12 +3,14 @@
 /**
  * swap - Swaps the positions of two elements in an array
  * @array: The array
- * @item1: Index of the first element
- * @item2: Index of the second element
+ * @a: Index of the first element
+ * @b: Index of the second element
  */
 void swap(int *array, size_t a, size_t b)
 {
-	int tmp = array[a];
+	int tmp
+
+	tmp = array[a];
 	array[a] = array[b];
 	array[b] = tmp;
 }
@@ -16,8 +18,8 @@ void swap(int *array, size_t a, size_t b)
 /**
  * lomuto_partition - Lomuto partition sorting scheme implementation
  * @array: The array to be partitioned
- * @first: The first index of the array
- * @last: The last index of the array
+ * @low: The first index of the array
+ * @high: The last index of the array
  * @size: The size of the array
  *
  * Return: The position of the last element after partitioning
@@ -46,14 +48,14 @@ int lomuto_partition(int *array, size_t low, size_t high, size_t size)
 		print_array(array, size);
 	}
 
-	return current;
+	return (current);
 }
 
 /**
  * quick_sort_recursion - Quick sort algorithm implementation (helper function)
  * @array: The array to be sorted
- * @first: The first index of the array
- * @last: The last index of the array
+ * @low: The first index of the array
+ * @high: The last index of the array
  * @size: The size of the array
  */
 void quick_sort_recursion(int *array, int low, int high, size_t size)
@@ -78,6 +80,6 @@ void quick_sort(int *array, size_t size)
 {
 	if (!array || size < 2)
 		return;
-    
+
 	quick_sort_recursion(array, 0, size - 1, size);
 }
